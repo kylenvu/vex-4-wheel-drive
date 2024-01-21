@@ -1,20 +1,36 @@
 #include "subsystems/drivebase.h"
 
-using namespace DriveConstants;
+// Example for the below constructor
+/**
+Point {
+ public:
+    Point(int x, int y);
+ private:
+    int _x;
+    int _y;
+};
+
+Point::Point(int x, int y) : _x{x}, _y{y} {}
+
+In general...
+Constructor(params) : initialize values {
+    constructor body
+}
+*/
+// Point::Point(int x, int y) : 
 
 Drivebase::Drivebase(std::int8_t topLeftPort,
                      std::int8_t topRightPort,
                      std::int8_t botLeftPort,
-                     std::int8_t botRightPort) {
-    m_TopLeftMotor  = pros::Motor(topLeftPort);    // Not reversed by default
-    m_BotLeftMotor  = pros::Motor(botLeftPort);
-
-    m_TopRightMotor = pros::Motor(topRightPort, true);
-    m_BotRightMotor = pros::Motor(botRightPort, true);
-}
+                     std::int8_t botRightPort)
+    : m_TopLeftMotor{topLeftPort},
+      m_TopRightMotor{topRightPort},
+      m_BotLeftMotor{botLeftPort, true},
+      m_BotRightMotor{botRightPort, true} {}
 
 
-Drivebase::ArcadeDrive(std::int32_t xAxisSpeed, std::int32_t zAxisTurn) {
+// Java equivalent - public void ArcadeDrive(int, int)
+void Drivebase::ArcadeDrive(std::int32_t xAxisSpeed, std::int32_t zAxisTurn) {
     std::int32_t left  = xAxisSpeed + zAxisTurn;
     std::int32_t right = xAxisSpeed - zAxisTurn;
     m_TopLeftMotor.move(left);
